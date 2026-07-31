@@ -1,0 +1,13 @@
+{
+  "name": "goflie-admin",
+  "main": "worker.js",
+  "compatibility_date": "2026-07-25",
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "arianikhas",
+      "database_id": "9579b807-ec22-4d99-986a-60bed3421f36"
+    }
+  ]
+}
