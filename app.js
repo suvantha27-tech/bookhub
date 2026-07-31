@@ -1,3 +1,4 @@
+// ===================== LOAD LINKS =====================
 async function loadLinks() {
   try {
     const res = await fetch('/api/list');
@@ -35,6 +36,7 @@ async function loadLinks() {
   }
 }
 
+// ===================== COPY (Event Delegation) =====================
 document.addEventListener('click', function(e) {
   const btn = e.target.closest('.copy-btn');
   if (!btn) return;
@@ -53,7 +55,7 @@ document.addEventListener('click', function(e) {
       }, 2500);
     })
     .catch(() => {
-      // Fallback
+      // Fallback for older browsers
       const input = document.createElement('input');
       input.value = url;
       document.body.appendChild(input);
@@ -65,6 +67,7 @@ document.addEventListener('click', function(e) {
     });
 });
 
+// ===================== CREATE LINK =====================
 async function createLink() {
   const slug = document.getElementById('newSlug').value.trim();
   const url = document.getElementById('newUrl').value.trim();
@@ -85,7 +88,7 @@ async function createLink() {
       alert('✅ បង្កើត Link ជោគជ័យ!');
       document.getElementById('newSlug').value = '';
       document.getElementById('newUrl').value = '';
-      loadLinks();
+      loadLinks(); // Reload the list
     } else {
       alert('❌ បង្កើតមិនបាន សូមពិនិត្យមើល Slug ថាមិនដូចគ្នា');
     }
