@@ -36,7 +36,6 @@ async function loadLinks() {
   }
 }
 
-// ===================== COPY (Event Delegation) =====================
 document.addEventListener('click', function(e) {
   const btn = e.target.closest('.copy-btn');
   if (!btn) return;
@@ -67,7 +66,6 @@ document.addEventListener('click', function(e) {
     });
 });
 
-// ===================== CREATE LINK =====================
 async function createLink() {
   const slug = document.getElementById('newSlug').value.trim();
   const url = document.getElementById('newUrl').value.trim();
@@ -98,5 +96,4 @@ async function createLink() {
   }
 }
 
-// ===================== START =====================
 document.addEventListener('DOMContentLoaded', loadLinks);
