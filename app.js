@@ -1,4 +1,4 @@
-// មុខងារទាញយកបញ្ជី Link ពី Worker API
+// ===================== LOAD LINKS =====================
 async function loadLinks() {
   try {
     const res = await fetch('/api/list');
@@ -8,7 +8,7 @@ async function loadLinks() {
     if (!tbody) return;
 
     if (links.length === 0) {
-      tbody.innerHTML = <tr><td colspan="5" style="text-align:center;">មិនទាន់មាន Link ទេ</td></tr>;
+      tbody.innerHTML = <tr><td colspan="6" style="text-align:center;">មិនទាន់មាន Link ទេ</td></tr>;
       return;
     }
 
@@ -22,6 +22,7 @@ async function loadLinks() {
           <td>${link.original_url}</td>
           <td>${link.clicks || 0}</td>
           <td>
+            <button class="play-btn-x" onclick="window.open('${link.original_url}', '_blank')" title="Play"></button>
             <button class="copy-btn" data-url="${shortUrl}">📋 Copy</button>
           </td>
         </tr>
@@ -31,11 +32,11 @@ async function loadLinks() {
 
   } catch (err) {
     console.error('Error loading links:', err);
-    document.getElementById('linkList').innerHTML = <tr><td colspan="5">❌ មិនអាចទាញយកទិន្នន័យបាន</td></tr>;
+    document.getElementById('linkList').innerHTML = <tr><td colspan="6">❌ មិនអាចទាញយកទិន្នន័យបាន</td></tr>;
   }
 }
 
-// ===== មុខងារ COPY (Event Delegation) =====
+// ===================== COPY (Event Delegation) =====================
 document.addEventListener('click', function(e) {
   const btn = e.target.closest('.copy-btn');
   if (!btn) return;
@@ -43,7 +44,6 @@ document.addEventListener('click', function(e) {
   const url = btn.dataset.url;
   if (!url) return;
 
-  // Copy to clipboard
   navigator.clipboard.writeText(url)
     .then(() => {
       const originalText = btn.textContent;
@@ -55,7 +55,7 @@ document.addEventListener('click', function(e) {
       }, 2500);
     })
     .catch(() => {
-      // Fallback សម្រាប់ browser ចាស់
+      // Fallback
       const input = document.createElement('input');
       input.value = url;
       document.body.appendChild(input);
@@ -67,7 +67,7 @@ document.addEventListener('click', function(e) {
     });
 });
 
-// ===== មុខងារបង្កើត Link ថ្មី =====
+// ===================== CREATE LINK =====================
 async function createLink() {
   const slug = document.getElementById('newSlug').value.trim();
   const url = document.getElementById('newUrl').value.trim();
@@ -88,7 +88,7 @@ async function createLink() {
       alert('✅ បង្កើត Link ជោគជ័យ!');
       document.getElementById('newSlug').value = '';
       document.getElementById('newUrl').value = '';
-      loadLinks(); // បញ្ជីថ្មី
+      loadLinks();
     } else {
       alert('❌ បង្កើតមិនបាន សូមពិនិត្យមើល Slug ថាមិនដូចគ្នា');
     }
@@ -98,5 +98,5 @@ async function createLink() {
   }
 }
 
-// ===== ដំណើរការពេលទំព័រផ្ទុករួច =====
+// ===================== START =====================
 document.addEventListener('DOMContentLoaded', loadLinks);
