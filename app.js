@@ -1,4 +1,4 @@
-// ===================== LOAD LINKS =====================
+
 async function loadLinks() {
   try {
     const res = await fetch('/api/list');
